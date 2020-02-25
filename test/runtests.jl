@@ -1,6 +1,4 @@
 using HTSLib
 using Test
 
-@testset "HTSLib.jl" begin
-    # Write your own tests here.
-end
+@test HTSLib.version() == "1.10.2"
