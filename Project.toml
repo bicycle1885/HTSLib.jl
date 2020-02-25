@@ -1,0 +1,10 @@
+name = "HTSLib"
+uuid = "c6cc9fc1-9624-539d-8f2d-40cf515419d5"
+authors = ["Kenta Sato <bicycle1885@gmail.com>"]
+version = "0.1.0"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
