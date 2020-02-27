@@ -1,23 +1,10 @@
 module HTSLib
 
-using htslib_jll: libhts
-
-# Low-level API
-# -------------
-
-hts_version() = ccall((:hts_version, libhts), Cstring, ())
-
-
-# High-level API
-# --------------
-
-const HTSLIB_VERSION = unsafe_string(hts_version())
+include("htslib/htslib.jl")
 
 """
-    version()
-
-Return the version string of HTSlib.
+The version string of htslib.
 """
-version() = HTSLIB_VERSION
+const HTSLIB_VERSION = unsafe_string(htslib.hts_version())
 
 end # module
