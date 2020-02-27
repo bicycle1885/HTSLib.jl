@@ -5,6 +5,12 @@ module htslib
 
 using htslib_jll: libhts
 
+include("types.jl")
+include("functions.jl")
+
+# A macro that makes function binding definitions concise.
+# For example, @defun foo(x::S, y::T)::U is expanded to:
+#   foo(x, y) = ccall((:foo, libhts), U, (S, T), x, y)
 macro defun(ex::Expr)
     @assert ex.head === :(::)
     call = ex.args[1]
@@ -32,7 +38,7 @@ macro defun(ex::Expr)
               argnames...))
 end
 
-include("types.jl")
+# The following files are machine-generated.  Do not edit them by hand.
 include("htslib/bgzf.jl")
 include("htslib/knetfile.jl")
 include("htslib/kfunc.jl")
