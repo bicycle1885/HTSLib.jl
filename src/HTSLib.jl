@@ -21,8 +21,40 @@ struct RecordView{T}
 end
 
 function Base.show(io::IO, view::RecordView{htslib.bam1_t})
-    bam = unsafe_load(view.ptr)
-    @printf(io, "%s(<%d:%d@%p>)", summary(view), bam.core.tid, bam.core.pos, view.ptr)
+    ptr = view.ptr
+    bam = unsafe_load(ptr)
+    @printf(io, "%s(<%d:%d@%p>)", summary(view), bam.core.tid, bam.core.pos, ptr)
+end
+
+@inline function Base.getproperty(view::RecordView{htslib.bam1_t}, name::Symbol)
+    bam = unsafe_load(getfield(view, :ptr))
+    if name == :pos
+        return bam.core.pos
+    elseif name == :tid
+        return bam.core.tid
+    elseif name == :bin
+        return bam.core.bin
+    elseif name == :qual
+        return bam.core.qual
+    elseif name == :l_extranul
+        return bam.core.l_extranul
+    elseif name == :flag
+        return bam.core.flag
+    elseif name == :l_qname
+        return bam.core.l_qname
+    elseif name == :n_cigar
+        return bam.core.n_cigar
+    elseif name == :l_qseq
+        return bam.core.l_qseq
+    elseif name == :mtid
+        return bam.core.mtid
+    elseif name == :mpos
+        return bam.core.mpos
+    elseif name == :isize
+        return bam.core.isize
+    else
+        return getfield(view, name)
+    end
 end
 
 
