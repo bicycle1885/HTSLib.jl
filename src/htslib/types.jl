@@ -28,6 +28,16 @@ const sam_hdr_t = Cvoid
 const bam_pileup1_t = Cvoid
 const bam_plp_t = Ptr{Cvoid}
 const bam_mplp_t = Ptr{Cvoid}
+# cram.h
+const cram_file_def = Cvoid
+const cram_fd = Cvoid
+const cram_container = Cvoid
+const cram_block = Cvoid
+const cram_slice = Cvoid
+const cram_metrics = Cvoid
+const cram_block_slice_hdr = Cvoid
+const cram_block_compression_hdr = Cvoid
+const refs_t = Cvoid
 
 # Function Types
 # --------------
@@ -109,4 +119,27 @@ struct bam1_t
     l_data::Cint
     m_data::UInt32
     mempolicy::UInt32
+end
+
+@enum cram_block_method begin
+    BM_ERROR = -1
+    RAW      = 0
+    GZIP     = 1
+    BZIP2    = 2
+    LZMA     = 3
+    #RANS     = 4
+    RANS0    = 4
+    RANS1    = 10
+    GZIP_RLE = 11
+end
+const RANS = RANS0
+
+@enum cram_content_type begin
+    CT_ERROR           = -1
+    FILE_HEADER        = 0
+    COMPRESSION_HEADER = 1
+    MAPPED_SLICE       = 2
+    UNMAPPED_SLICE     = 3
+    EXTERNAL           = 4
+    CORE               = 5
 end

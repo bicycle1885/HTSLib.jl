@@ -13,6 +13,7 @@ headerfiles = [
     "htslib/tbx.h",
     "htslib/regidx.h",
     "htslib/sam.h",
+    "htslib/cram.h",
 ]
 for headerfile in headerfiles
     headerfile = relpath(normpath(joinpath(rootdir, headerfile)))
