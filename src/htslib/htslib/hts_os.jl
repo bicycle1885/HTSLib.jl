@@ -4,7 +4,7 @@
 @defun hts_srand48(seed::Clong)::Cvoid
 
 # double hts_erand48(unsigned short xseed[3]);
-@defun hts_erand48(xseed::Ref{Cushort})::Cdouble
+@defun hts_erand48(xseed::Ptr{Cushort})::Cdouble
 
 # double hts_drand48(void);
 @defun hts_drand48()::Cdouble

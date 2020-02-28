@@ -7,11 +7,11 @@
 @defun knet_dopen(fd::Cint, mode::Cstring)::Ptr{knetFile}
 
 # ssize_t knet_read(knetFile *fp, void *buf, size_t len);
-@defun knet_read(fp::Ref{knetFile}, buf::Ref{Cvoid}, len::Csize_t)::Cssize_t
+@defun knet_read(fp::Ptr{knetFile}, buf::Ptr{Cvoid}, len::Csize_t)::Cssize_t
 
 # off_t knet_seek(knetFile *fp, off_t off, int whence);
-@defun knet_seek(fp::Ref{knetFile}, off::Coff_t, whence::Cint)::Coff_t
+@defun knet_seek(fp::Ptr{knetFile}, off::Coff_t, whence::Cint)::Coff_t
 
 # int knet_close(knetFile *fp);
-@defun knet_close(fp::Ref{knetFile})::Cint
+@defun knet_close(fp::Ptr{knetFile})::Cint
 

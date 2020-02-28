@@ -70,7 +70,8 @@ function translate_type_and_name(code, i; argument)
         type = typemap(typename)
     end
     while token[1] == :asterisk
-        type = argument ? "Ref{$(type)}" : "Ptr{$(type)}"
+        #type = argument ? "Ref{$(type)}" : "Ptr{$(type)}"
+        type = "Ptr{$(type)}"
         token, i = nexttoken(code, i)
     end
     if argument && token[1] == :lparen
@@ -86,7 +87,8 @@ function translate_type_and_name(code, i; argument)
             if token[1] == :integer
                 token, i = nexttoken(code, i)
             end
-            type = argument ? "Ref{$(type)}" : "Ptr{$(type)}"
+            #type = argument ? "Ref{$(type)}" : "Ptr{$(type)}"
+            type = "Ptr{$(type)}"
             return (type, name), nexttoken(code, i)
         else
             return (type, name), (token, i)

@@ -16,5 +16,5 @@
 @defun kf_betai(a::Cdouble, b::Cdouble, x::Cdouble)::Cdouble
 
 # double kt_fisher_exact(int n11, int n12, int n21, int n22, double *_left, double *_right, double *two);
-@defun kt_fisher_exact(n11::Cint, n12::Cint, n21::Cint, n22::Cint, _left::Ref{Cdouble}, _right::Ref{Cdouble}, two::Ref{Cdouble})::Cdouble
+@defun kt_fisher_exact(n11::Cint, n12::Cint, n21::Cint, n22::Cint, _left::Ptr{Cdouble}, _right::Ptr{Cdouble}, two::Ptr{Cdouble})::Cdouble
 
