@@ -8,7 +8,7 @@
 
 ## Overview
 
-A Julia for high-throughput sequencing (HTS) data formats.
+A Julia package for high-throughput sequencing (HTS) data formats.
 
 This package offers funcionality of [htslib](https://www.htslib.org/), which
 is a C library for reading and writing HTS data formats and is commonly used as
