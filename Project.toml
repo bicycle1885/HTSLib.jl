@@ -4,6 +4,7 @@ authors = ["Kenta Sato <bicycle1885@gmail.com>"]
 version = "0.1.0"
 
 [deps]
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 htslib_jll = "f06fe41e-9474-5571-8c61-5634d2b2700c"
 
 [extras]

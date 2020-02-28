@@ -42,6 +42,7 @@ function iterateregion(filepath::AbstractString, region::AbstractString)
     # Destroy the allocated objects.
     htslib.bam_destroy1(record)
     htslib.hts_idx_destroy(index)
+    htslib.hts_itr_destroy(iterator)
     htslib.sam_hdr_destroy(header)
 
     # Close the file.
