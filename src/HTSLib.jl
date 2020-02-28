@@ -1,5 +1,7 @@
 module HTSLib
 
+export eachrecord
+
 using Printf: @printf
 
 include("htslib/htslib.jl")
