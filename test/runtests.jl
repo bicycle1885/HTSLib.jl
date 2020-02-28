@@ -20,5 +20,5 @@ end
 # --------------
 
 @testset "High-level API" begin
-    @test HTSLib.HTSLIB_VERSION == "1.10.2"
+    @test HTSLib.HTSLIB_VERSION == v"1.10.2"
 end

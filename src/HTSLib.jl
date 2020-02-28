@@ -5,9 +5,9 @@ using Printf: @printf
 include("htslib/htslib.jl")
 
 """
-The version string of htslib.
+The version of htslib.
 """
-const HTSLIB_VERSION = unsafe_string(htslib.hts_version())
+const HTSLIB_VERSION = VersionNumber(unsafe_string(htslib.hts_version()))
 
 
 # Record view
