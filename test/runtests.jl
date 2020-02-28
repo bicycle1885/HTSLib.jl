@@ -7,8 +7,13 @@ using Test
 
 @testset "Low-level API" begin
     # check struct size (these sizes are derived from C's sizeof operator)
-    @test sizeof(htslib.bam1_core_t) == 48
-    @test sizeof(htslib.bam1_t) == 72 + sizeof(Ptr)
+    if Sys.isunix() && Sys.ARCH == :x86_64  # LP64
+        @test sizeof(htslib.kstring_t) == 24
+        @test sizeof(htslib.htsFormat) == 32
+        @test sizeof(htslib.htsFile) == 128
+        @test sizeof(htslib.bam1_core_t) == 48
+        @test sizeof(htslib.bam1_t) == 80
+    end
 end
 
 # High-level API

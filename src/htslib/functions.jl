@@ -6,6 +6,9 @@
 # exported from the dynamic library.
 #
 
+# utility function
+_bitfield(ptr::Ptr, offset::Int) = (unsafe_load(ptr) >> offset) & 1 != 0
+
 # Defined in sam.h
 # ----------------
 
@@ -34,3 +37,22 @@ for func in [:bam_is_rev, :bam_is_mrev, :bam_get_qname, :bam_get_cigar,
     @eval $(func)(b::Ptr{bam1_t}) = $(func)(unsafe_load(b))
 end
 
+function sam_itr_next(htsfp::Ptr{htsFile}, itr::Ptr{hts_itr_t}, r::Ptr{bam1_t})
+    is_bgzf = _bitfield(Ptr{UInt32}(htsfp), 4)
+    is_cram = _bitfield(Ptr{UInt32}(htsfp), 3)
+    if !is_bgzf && !is_cram
+        # TODO: hts_log_error
+        return Cint(-2)
+    end
+    if itr == C_NULL
+        # TODO: hts_log_error
+        return Cint(-2)
+    end
+
+    multi = _bitfield(Ptr{UInt32}(itr), 4)
+    if multi
+        return hts_itr_multi_next(htsfp, itr, r)
+    else
+        return hts_itr_next(is_bgzf ? unsafe_load(htsfp).fp : C_NULL, itr, r, htsfp)
+    end
+end

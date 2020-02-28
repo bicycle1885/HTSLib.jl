@@ -13,8 +13,6 @@ const hts_tpool = Cvoid
 const knetFile = Cvoid
 const faidx_t = Cvoid
 const hts_opt = Cvoid
-const htsFile = Cvoid
-const htsFormat = Cvoid
 const htsThreadPool = Cvoid
 const hts_idx_t = Cvoid
 const hts_itr_t = Cvoid
@@ -27,7 +25,6 @@ const tbx_t = Cvoid
 const regidx_t = Cvoid
 const regitr_t = Cvoid
 const sam_hdr_t = Cvoid
-const samFile = htsFile
 const bam_pileup1_t = Cvoid
 const bam_plp_t = Ptr{Cvoid}
 const bam_mplp_t = Ptr{Cvoid}
@@ -64,6 +61,31 @@ end
     FAI_FASTA
     FAI_FASTQ
 end
+
+struct htsFormat
+    category::Cint  # enum htsFormatCategory
+    format::Cint  # enum htsExactFormat
+    version::Tuple{Cshort,Cshort}   # major, minor
+    compression::Cint  # enum htsCompression
+    compression_level::Cshort
+    specific::Ptr{Cvoid}
+end
+
+struct htsFile
+    bitflags::UInt32  # is_bin, is_write, is_be, is_cram, is_bgzf, and dummy
+    lineno::Int64
+    line::kstring_t
+    fn::Ptr{Cchar}
+    fn_aux::Ptr{Cchar}
+    fp::Ptr{Cvoid}  # union of bgzf, cram, and hfile
+    state::Ptr{Cvoid}
+    format::htsFormat
+    idx::Ptr{hts_idx_t}
+    fnidx::Ptr{Cchar}
+    bam_header::Ptr{sam_hdr_t}
+end
+
+const samFile = htsFile  # typedef alias
 
 # Record flags
 "The read is paired in sequencing, no matter whether it is mapped in a pair"

@@ -6,6 +6,7 @@ module htslib
 using htslib_jll: libhts
 
 include("types.jl")
+include("constants.jl")
 include("functions.jl")
 
 # A macro that makes function binding definitions concise.
