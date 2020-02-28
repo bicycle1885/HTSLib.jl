@@ -65,6 +65,17 @@ mutable struct RecordIterator
     end
 end
 
+function eachrecord(filepath::AbstractString)
+    # TODO: more careful memory management
+    file = htslib.hts_open(filepath, "r")
+    file == C_NULL && error("failed to open $(filepath)")
+    header = htslib.sam_hdr_read(file)
+    header == C_NULL && error("failed to read the header of $(filepath)")
+    record = htslib.bam_init1()
+    record == C_NULL && error("failed to allocate a new record")
+    return RecordIterator(file, header, C_NULL, C_NULL, record)
+end
+
 function eachrecord(filepath::AbstractString, region::AbstractString)
     # TODO: more careful memory management
     file = htslib.hts_open(filepath, "r")
@@ -82,11 +93,19 @@ function eachrecord(filepath::AbstractString, region::AbstractString)
 end
 
 function Base.iterate(iter::RecordIterator, ::Nothing = nothing)
-    res = htslib.sam_itr_next(iter.file, iter.iterator, iter.record)
+    @assert iter.index == C_NULL && iter.iterator == C_NULL ||
+            iter.index != C_NULL && iter.iterator != C_NULL
+    if iter.index == C_NULL
+        res = htslib.sam_read1(iter.file, iter.header, iter.record)
+    else
+        res = htslib.sam_itr_next(iter.file, iter.iterator, iter.record)
+    end
     @assert res ≥ -1
     if res ≥ 0
+        # one or more records
         return RecordView(iter.record), nothing
     else
+        # no records
         finalize(iter)  # early finalization
         return nothing
     end
