@@ -12,6 +12,12 @@ _bitfield(ptr::Ptr, offset::Int) = (unsafe_load(ptr) >> offset) & 1 != 0
 # Defined in sam.h
 # ----------------
 
+bam_cigar_op(c)     = c & BAM_CIGAR_MASK
+bam_cigar_oplen(c)  = c >> BAM_CIGAR_SHIFT
+bam_cigar_opchar(c) = _BAM_CIGAR_STA_PADDED[bam_cigar_op(c)+1]
+bam_cigar_gen(l, o) = l<<BAM_CIGAR_SHIFT | o
+bam_cigar_type(o)   = BAM_CIGAR_TYPE>>(o<<1) & 0x3
+
 bam_is_rev(b::bam1_t)    = (b.core.flag & BAM_FREVERSE) != 0
 bam_is_mrev(b::bam1_t)   = (b.core.flag & BAM_FMREVERSE) != 0
 bam_get_qname(b::bam1_t) = Cstring(b.data)
@@ -30,7 +36,7 @@ function bam_set_mempolicy(b::Ptr{bam1_t}, policy::Integer)
 end
 bam_get_mempolicy(b::bam1_t) = b.mempolicy
 
-# Derive functions for pointer argument.
+# Derive methods for pointer argument.
 for func in [:bam_is_rev, :bam_is_mrev, :bam_get_qname, :bam_get_cigar,
              :bam_get_seq, :bam_get_qual, :bam_get_aux, :bam_get_l_aux,
              :bam_get_mempolicy]

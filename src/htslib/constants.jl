@@ -6,6 +6,26 @@ const HTS_FMT_BAI  = Cint(1)
 const HTS_FMT_TBI  = Cint(2)
 const HTS_FMT_CRAI = Cint(3)
 
+# CIGAR operations
+const BAM_CMATCH     = Cint(0)
+const BAM_CINS       = Cint(1)
+const BAM_CDEL       = Cint(2)
+const BAM_CREF_SKIP  = Cint(3)
+const BAM_CSOFT_CLIP = Cint(4)
+const BAM_CHARD_CLIP = Cint(5)
+const BAM_CPAD       = Cint(6)
+const BAM_CEQUAL     = Cint(7)
+const BAM_CDIFF      = Cint(8)
+const BAM_CBACK      = Cint(9)
+
+const BAM_CIGAR_STR   = b"MIDNSHP=XB"
+const _BAM_CIGAR_STA_PADDED = b"MIDNSHP=XB??????"  # padded for safe lookup
+const BAM_CIGAR_SHIFT = Cint(4)
+const BAM_CIGAR_MASK  = 0xf
+const BAM_CIGAR_TYPE  = 0x3C1A7
+
+const bam_cigar_table = [unsafe_load(cglobal((:bam_cigar_table, libhts), UInt8), i) for i in 1:256]
+
 # Record flags
 "The read is paired in sequencing, no matter whether it is mapped in a pair"
 const BAM_FPAIRED        = UInt16(1 << 0)
