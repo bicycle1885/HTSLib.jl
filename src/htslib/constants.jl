@@ -28,7 +28,7 @@ const BAM_CDIFF      = Cint(8)
 const BAM_CBACK      = Cint(9)
 
 const BAM_CIGAR_STR   = b"MIDNSHP=XB"
-const _BAM_CIGAR_STA_PADDED = b"MIDNSHP=XB??????"  # padded for safe lookup
+const _BAM_CIGAR_STR_PADDED = b"MIDNSHP=XB??????"  # padded for safe lookup
 const BAM_CIGAR_SHIFT = Cint(4)
 const BAM_CIGAR_MASK  = 0xf
 const BAM_CIGAR_TYPE  = 0x3C1A7

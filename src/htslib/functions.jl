@@ -14,7 +14,7 @@ _bitfield(ptr::Ptr, offset::Int) = (unsafe_load(ptr) >> offset) & 1 != 0
 
 bam_cigar_op(c)     = c & BAM_CIGAR_MASK
 bam_cigar_oplen(c)  = c >> BAM_CIGAR_SHIFT
-bam_cigar_opchar(c) = _BAM_CIGAR_STA_PADDED[bam_cigar_op(c)+1]
+bam_cigar_opchar(c) = _BAM_CIGAR_STR_PADDED[bam_cigar_op(c)+1]
 bam_cigar_gen(l, o) = l<<BAM_CIGAR_SHIFT | o
 bam_cigar_type(o)   = BAM_CIGAR_TYPE>>(o<<1) & 0x3
 
