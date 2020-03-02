@@ -7,7 +7,7 @@ headerfiles = [
     "htslib/kfunc.h",
     "htslib/hfile.h",
     "htslib/hts_os.h",
-    #"htslib/hts_log.h",
+    "htslib/hts_log.h",
     "htslib/faidx.h",
     "htslib/hts.h",
     "htslib/tbx.h",

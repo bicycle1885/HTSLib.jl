@@ -1,6 +1,15 @@
 # Constants
 # =========
 
+@enum htsLogLevel begin
+    HTS_LOG_OFF
+    HTS_LOG_ERROR
+    HTS_LOG_WARNING = 3
+    HTS_LOG_INFO
+    HTS_LOG_DEBUG
+    HTS_LOG_TRACE
+end
+
 const HTS_FMT_CSI  = Cint(0)
 const HTS_FMT_BAI  = Cint(1)
 const HTS_FMT_TBI  = Cint(2)
